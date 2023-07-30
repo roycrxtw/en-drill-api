@@ -1,5 +1,5 @@
 export interface IGeneralResponse {
   ok: boolean;
-  msg: string;
+  msg?: string;
   payload?: any;
 }

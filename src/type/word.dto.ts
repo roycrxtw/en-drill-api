@@ -1,4 +1,12 @@
-import { IsString, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsArray,
+  ValidateNested,
+  ArrayNotEmpty,
+} from 'class-validator';
+import { ExampleDto } from './example.dto';
+import { Type } from 'class-transformer';
 
 export class WordCreateDto {
   @IsString()
@@ -16,8 +24,9 @@ export class WordCreateDto {
   @IsOptional()
   seeAlso: string;
 
-  examples: {
-    example: string;
-    source: string;
-  };
+  @IsArray()
+  @ArrayNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => ExampleDto)
+  examples: ExampleDto[];
 }

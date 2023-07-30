@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -18,6 +19,22 @@ export class WordService {
     });
     console.log('[listWords] list', list);
     return list;
+  }
+
+  async randomWord(): Promise<object> {
+    const count = await this.wordModel.count();
+    const offset = _.random(0, count - 1);
+    const sampleWord = _.first(
+      await this.wordModel.find({
+        relations: {
+          examples: true,
+        },
+        take: 1,
+        skip: offset,
+      }),
+    );
+    console.log('[randomWord] offset', offset);
+    return sampleWord;
   }
 
   async searchWords(keyword: string): Promise<object> {
