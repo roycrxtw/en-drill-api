@@ -1,11 +1,10 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Word } from './entity/word';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { WordService } from './word.service';
 import { WordCreateDto } from './type/word.dto';
+import { ApiKeyAuthGuard } from './guard/api-key-auth.guard';
 
 @Controller('/words')
+@UseGuards(ApiKeyAuthGuard)
 export class WordController {
   constructor(private readonly wordService: WordService) {}
 
