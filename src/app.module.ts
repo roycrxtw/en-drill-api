@@ -7,8 +7,6 @@ import { Word } from './entity/word';
 import { Example } from './entity/example';
 import { WordModule } from './word.module';
 
-console.log(process.env); // remove this after you've confirmed it is working
-
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT } = process.env;
 
 @Module({
